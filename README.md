@@ -281,7 +281,10 @@ uvicorn backend.main:app --reload
 **IntelliDoc** demonstrates how RAG, semantic embeddings, vector databases, and generative AI can be integrated to build an intelligent educational platform for automated learning support.
 
 <br/>
-
+<div align="center">
+  <img src="screenshots/dashboard.png" alt="IntelliDoc Dashboard" width="800"/>
+  <p><i>IntelliDoc — topic selection and question generation interface</i></p>
+</div>
 ![Made with ❤️](https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F-1D9E75?style=flat-square)
 
 </div>
