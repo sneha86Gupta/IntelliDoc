@@ -1,0 +1,144 @@
+/* Global Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 25px;
+}
+
+.upload-section {
+    text-align: center;
+}
+
+/* Inputs */
+input[type="file"],
+input[type="number"],
+select {
+    padding: 8px;
+    margin: 8px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    margin: 10px 5px 0 0;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Navigation */
+.navigation {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Status Text */
+#status {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Topics */
+#topicsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.topic-item {
+    padding: 12px;
+    background: #eef3f8;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.topic-item:hover {
+    background: #d9e6f5;
+}
+
+/* Questions */
+#questionsContainer {
+    margin-top: 20px;
+}
+
+.question-card {
+    background: #fafafa;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #007bff;
+}
+
+.question-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.options {
+    margin-left: 15px;
+}
+
+.option-item {
+    margin-bottom: 5px;
+}
+
+/* Accordion */
+.answer-section {
+    margin-top: 10px;
+}
+
+.toggle-btn {
+    background-color: #28a745;
+}
+
+.toggle-btn:hover {
+    background-color: #1e7e34;
+}
+
+.answer-content {
+    display: none;
+    margin-top: 8px;
+    padding: 10px;
+    background: #e9f7ef;
+    border-radius: 5px;
+}
+
+/* Controls */
+.controls {
+    margin-bottom: 20px;
+}
