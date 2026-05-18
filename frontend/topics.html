@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Topics - AI Learning Platform</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-animate:active {
+            transform: scale(0.96);
+        }
+
+        /* Same hover as dashboard */
+        .card-hover:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: #6366F1;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-white min-h-screen flex justify-center">
+
+    <div class="w-full max-w-5xl px-6 py-10">
+
+        <!-- HEADER -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                📚 Topics
+            </h1>
+            <p class="text-slate-400 mt-2">
+                Select a topic to generate focused questions
+            </p>
+        </div>
+
+        <!-- MAIN CARD -->
+        <div class="glass rounded-3xl p-8 shadow-2xl">
+
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold">Available Topics</h2>
+
+                <span class="text-xs px-3 py-1 rounded-full bg-slate-800 text-slate-300">
+                    AI Extracted
+                </span>
+            </div>
+
+            <!-- ✅ UPDATED LIST STYLE -->
+            <div id="topicsList" class="space-y-3">
+
+                <!-- Empty State -->
+                <div id="emptyState"
+                    class="text-center text-slate-400 py-12 border border-dashed border-slate-700 rounded-xl">
+
+                    <div class="text-4xl mb-3">📭</div>
+                    <p>No topics found</p>
+                    <p class="text-xs mt-1">Upload a document to extract topics</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="mt-8 text-center">
+            <button onclick="goToDashboard()"
+                class="btn-animate px-6 py-3 rounded-xl border border-slate-600 hover:bg-slate-800 transition">
+                ← Back to Dashboard
+            </button>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="js/api.js"></script>
+    <script src="js/topics.js"></script>
+
+    <!-- UI INTERACTIONS -->
+    <script>
+        // Hide empty state when topics exist
+        const observer = new MutationObserver(() => {
+            const list = document.getElementById('topicsList');
+            const empty = document.getElementById('emptyState');
+
+            if (list.children.length > 1) {
+                empty.style.display = 'none';
+            }
+        });
+
+        observer.observe(document.getElementById('topicsList'), { childList: true });
+    </script>
+
+</body>
+</html>

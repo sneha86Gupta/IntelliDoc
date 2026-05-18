@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Questions - AI Learning Platform</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .glow:hover {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-animate:active {
+            transform: scale(0.96);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+        }
+
+        .dropdown-item:hover {
+            background: #1e293b;
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(to right, #6366F1, #8B5CF6);
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-white min-h-screen flex justify-center">
+
+    <div class="w-full max-w-6xl px-6 py-10">
+
+        <!-- HEADER -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                📝 Generated Questions
+            </h1>
+            <p class="text-slate-400 mt-2">
+                Customize and generate AI-powered questions instantly
+            </p>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="glass rounded-3xl p-6 shadow-xl mb-8">
+
+            <div class="grid md:grid-cols-3 gap-6 items-end">
+
+                <!-- Number -->
+                <div>
+                    <label class="text-sm text-slate-400">Number of Questions</label>
+                    <input type="number" id="numQuestions" value="5" min="1" max="50"
+                        class="w-full mt-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 focus:border-indigo-500 outline-none">
+                </div>
+
+                <!-- Question Type Dropdown -->
+                <div class="relative">
+                    <label class="text-sm text-slate-400">Question Type</label>
+
+                    <!-- Hidden select -->
+                    <select id="questionTypes" class="hidden">
+                        <option value="mcq" selected>MCQ</option>
+                        <option value="short">Short</option>
+                        <option value="long">Long</option>
+                    </select>
+
+                    <!-- Button -->
+                    <button id="dropdownBtn"
+                        class="w-full mt-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 
+                               text-left flex justify-between items-center hover:border-indigo-500 transition">
+                        <span id="dropdownLabel">MCQ</span>
+                        <span class="text-slate-400">▼</span>
+                    </button>
+
+                    <!-- Menu -->
+                    <div id="dropdownMenu"
+                        class="hidden absolute z-20 mt-2 w-full glass rounded-xl shadow-lg overflow-hidden">
+
+                        <div class="dropdown-item px-4 py-3 cursor-pointer" data-value="mcq">
+                            MCQ
+                        </div>
+
+                        <div class="dropdown-item px-4 py-3 cursor-pointer" data-value="short">
+                            Short
+                        </div>
+
+                        <div class="dropdown-item px-4 py-3 cursor-pointer" data-value="long">
+                            Long
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex gap-3">
+                    <button id="generateBtn"
+                        class="btn-animate glow flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 py-3 rounded-xl font-semibold">
+                        ⚡ Generate
+                    </button>
+
+                    <button id="exportBtn"
+                        class="btn-animate border border-slate-600 px-4 rounded-xl hover:bg-slate-800 transition">
+                        📄 Export
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- QUESTIONS -->
+        <div id="questionsContainer" class="space-y-6">
+
+            <!-- Empty State -->
+            <div id="emptyState"
+                class="text-center text-slate-400 py-12 border border-dashed border-slate-700 rounded-xl">
+
+                <div class="text-4xl mb-3">🤖</div>
+                <p>No questions generated yet</p>
+                <p class="text-xs mt-1">Click "Generate" to begin</p>
+            </div>
+
+        </div>
+
+        <!-- NAV -->
+        <div class="mt-10 text-center">
+            <button onclick="goToTopics()"
+                class="px-6 py-3 rounded-xl border border-slate-600 hover:bg-slate-800 transition">
+                ← Back to Topics
+            </button>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="js/api.js"></script>
+    <script src="js/questions.js"></script>
+    <script src="js/export.js"></script>
+
+    <!-- Dropdown Script -->
+    <script>
+        const dropdownBtn = document.getElementById("dropdownBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        const dropdownLabel = document.getElementById("dropdownLabel");
+        const select = document.getElementById("questionTypes");
+        const items = document.querySelectorAll(".dropdown-item");
+
+        // Toggle dropdown
+        dropdownBtn.addEventListener("click", () => {
+            dropdownMenu.classList.toggle("hidden");
+        });
+
+        // Select option
+        items.forEach(item => {
+            item.addEventListener("click", () => {
+                const value = item.dataset.value;
+
+                select.value = value;
+                dropdownLabel.innerText = item.innerText;
+
+                items.forEach(i => i.classList.remove("active"));
+                item.classList.add("active");
+
+                dropdownMenu.classList.add("hidden");
+            });
+        });
+
+        // Close outside
+        document.addEventListener("click", (e) => {
+            if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+
+        // Default active
+        items[0].classList.add("active");
+
+        // Empty state observer
+        const observer = new MutationObserver(() => {
+            const container = document.getElementById('questionsContainer');
+            const empty = document.getElementById('emptyState');
+
+            if (container.querySelector('.glass')) {
+                empty.style.display = 'none';
+            }
+        });
+
+        observer.observe(document.getElementById('questionsContainer'), { childList: true });
+    </script>
+
+</body>
+</html>

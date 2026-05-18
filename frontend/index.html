@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Learning Platform</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Glass effect */
+        .glass {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Glow effect */
+        .glow:hover {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Upload animation */
+        .upload-hover:hover {
+            transform: scale(1.02);
+            border-color: #6366F1;
+        }
+
+        /* Button animation */
+        .btn-animate:active {
+            transform: scale(0.96);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-4xl px-6">
+
+        <!-- HEADER -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                📘 AI Learning Platform
+            </h1>
+            <p class="text-slate-400 mt-2">Upload your study material and let AI generate smart questions</p>
+        </div>
+
+        <!-- MAIN CARD -->
+        <div class="glass rounded-3xl p-8 shadow-2xl transition-all duration-300">
+
+            <h2 class="text-xl font-semibold mb-6">Upload Study Material</h2>
+
+            <!-- DRAG & DROP AREA -->
+            <label for="fileInput"
+                   class="upload-hover cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-slate-600 rounded-2xl p-10 text-center transition-all duration-300">
+
+                <div class="text-5xl mb-4">📂</div>
+
+                <p class="text-lg font-medium">Drag & Drop your file</p>
+                <p class="text-sm text-slate-400 mt-1">or click to browse (PDF / DOCX)</p>
+
+                <input type="file" id="fileInput" accept=".pdf,.docx" class="hidden">
+            </label>
+
+            <!-- FILE PREVIEW -->
+            <div id="filePreview" class="mt-4 text-sm text-slate-300 hidden"></div>
+
+            <!-- UPLOAD BUTTON -->
+            <button id="uploadBtn"
+                class="btn-animate glow w-full mt-6 bg-gradient-to-r from-indigo-500 to-purple-600 py-3 rounded-xl font-semibold transition-all duration-300">
+                🚀 Upload & Process
+            </button>
+
+            <!-- STATUS -->
+            <div id="status" class="mt-4 text-sm text-slate-400"></div>
+
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="mt-6 text-center">
+            <button onclick="goToDashboard()"
+                class="px-6 py-3 rounded-xl border border-slate-600 hover:bg-slate-800 transition-all duration-300">
+                Go to Dashboard →
+            </button>
+        </div>
+
+    </div>
+
+    <!-- JS (UNCHANGED) -->
+    <script src="js/upload.js"></script>
+    <script src="js/api.js"></script>
+
+    <!-- ENHANCED UI INTERACTIONS -->
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('filePreview');
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                preview.classList.remove('hidden');
+                preview.innerHTML = `📄 Selected: <strong>${fileInput.files[0].name}</strong>`;
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - AI Learning Platform</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Glass effect */
+        .glass {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Glow hover */
+        .glow:hover {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Button press */
+        .btn-animate:active {
+            transform: scale(0.96);
+        }
+
+        /* Card hover */
+        .card-hover:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: #6366F1;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-5xl px-6">
+
+        <!-- HEADER -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                📊 Dashboard
+            </h1>
+            <p class="text-slate-400 mt-2">
+                Manage your uploaded documents and generated content
+            </p>
+        </div>
+
+        <!-- MAIN CARD -->
+        <div class="glass rounded-3xl p-8 shadow-2xl transition-all duration-300">
+
+            <!-- SECTION HEADER -->
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold">Your Documents</h2>
+
+                <!-- Subtle badge -->
+                <span class="text-xs px-3 py-1 rounded-full bg-slate-800 text-slate-300">
+                    AI Synced
+                </span>
+            </div>
+
+            <!-- DOCUMENT LIST -->
+            <div id="documentsList" class="space-y-4">
+
+                <!-- Empty State -->
+                <div id="emptyState"
+                     class="text-center text-slate-400 py-10 border border-dashed border-slate-700 rounded-xl">
+
+                    <div class="text-4xl mb-3">📄</div>
+                    <p class="text-sm">No documents uploaded yet</p>
+                    <p class="text-xs mt-1">Upload a file to start generating questions</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="mt-6 flex justify-center">
+            <button onclick="goToUpload()"
+                class="btn-animate glow px-8 py-3 rounded-xl font-semibold 
+                       bg-gradient-to-r from-indigo-500 to-purple-600 
+                       transition-all duration-300">
+                ⬆ Upload New Document
+            </button>
+        </div>
+
+    </div>
+
+    <!-- JS (UNCHANGED) -->
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+
+    <!-- OPTIONAL UI ENHANCEMENTS -->
+    <script>
+        // Hide empty state when documents exist
+        const observer = new MutationObserver(() => {
+            const list = document.getElementById('documentsList');
+            const empty = document.getElementById('emptyState');
+
+            if (list.children.length > 1) {
+                empty.style.display = 'none';
+            }
+        });
+
+        observer.observe(document.getElementById('documentsList'), { childList: true });
+    </script>
+
+</body>
+</html>
